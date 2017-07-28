@@ -27,7 +27,7 @@ outputDisplay roll =
                     [ span [] [ text "Choose every option to calculate" ]
                     ]
                 Just r -> 
-                    [ span [] [ text "Need to roll:" ]
+                    [ span [] [ text "Need to roll: " ]
                     , span [] [ text (toString r) ]
                     ]
     in

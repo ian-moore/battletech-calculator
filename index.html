@@ -8297,6 +8297,48 @@ var _user$project$Messages$NoOp = {ctor: 'NoOp'};
 var _user$project$Subscriptions$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
+var _user$project$View$radioLabel = F4(
+	function (radioName, radioId, radioLabel, clickMsg) {
+		return {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$id(radioId),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$type_('radio'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$name(radioName),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(clickMsg),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$label,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$for(radioId),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(radioLabel),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		};
+	});
 var _user$project$View$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -8318,131 +8360,103 @@ var _user$project$View$view = function (model) {
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$div,
+					_elm_lang$html$Html$h2,
+					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('input-group'),
+						_0: _elm_lang$html$Html$text('Range Group'),
 						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$input,
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('input-group'),
+							_1: {ctor: '[]'}
+						},
+						_elm_lang$core$List$concat(
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$id('input-range-short'),
+								_0: A4(
+									_user$project$View$radioLabel,
+									'range',
+									'input-range-short',
+									'Short',
+									_user$project$Messages$RangeChanged(_user$project$Models$Short)),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$type_('radio'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$name('range'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onClick(
-												_user$project$Messages$RangeChanged(_user$project$Models$Short)),
-											_1: {ctor: '[]'}
-										}
-									}
+									_0: A4(
+										_user$project$View$radioLabel,
+										'range',
+										'input-range-medium',
+										'Medium',
+										_user$project$Messages$RangeChanged(_user$project$Models$Medium)),
+									_1: {ctor: '[]'}
 								}
-							},
-							{ctor: '[]'}),
+							})),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$h2,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Attacker Movement'),
+								_1: {ctor: '[]'}
+							}),
 						_1: {
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$label,
+								_elm_lang$html$Html$div,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$for('input-range-short'),
+									_0: _elm_lang$html$Html_Attributes$class('input-group'),
 									_1: {ctor: '[]'}
 								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Short'),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$input,
+								_elm_lang$core$List$concat(
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$id('input-range-medium'),
+										_0: A4(
+											_user$project$View$radioLabel,
+											'attacker-movement',
+											'input-attacker-stationary',
+											'Stationary',
+											_user$project$Messages$AttackerMovementChanged(_user$project$Models$Stationary)),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$type_('radio'),
+											_0: A4(
+												_user$project$View$radioLabel,
+												'attacker-movement',
+												'input-attacker-walked',
+												'Walked',
+												_user$project$Messages$AttackerMovementChanged(_user$project$Models$Walked)),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$name('range'),
+												_0: A4(
+													_user$project$View$radioLabel,
+													'attacker-movement',
+													'input-attacker-ran',
+													'Ran',
+													_user$project$Messages$AttackerMovementChanged(_user$project$Models$Ran)),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html_Events$onClick(
-														_user$project$Messages$RangeChanged(_user$project$Models$Medium)),
+													_0: A4(
+														_user$project$View$radioLabel,
+														'attacker-movement',
+														'input-attacker-jumped',
+														'Jumped',
+														_user$project$Messages$AttackerMovementChanged(_user$project$Models$Jumped)),
 													_1: {ctor: '[]'}
 												}
 											}
 										}
-									},
-									{ctor: '[]'}),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$label,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$for('input-range-medium'),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Medium'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$input,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$id('input-range-long'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$type_('radio'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$name('range'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Events$onClick(
-																_user$project$Messages$RangeChanged(_user$project$Models$Long)),
-															_1: {ctor: '[]'}
-														}
-													}
-												}
-											},
-											{ctor: '[]'}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$label,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$for('input-range-long'),
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Long'),
-													_1: {ctor: '[]'}
-												}),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
+									})),
+							_1: {ctor: '[]'}
 						}
-					}),
-				_1: {ctor: '[]'}
+					}
+				}
 			}
 		});
 };

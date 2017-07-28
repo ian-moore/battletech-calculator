@@ -3,8 +3,7 @@ module Messages exposing (..)
 import Models exposing (..)
 
 type Msg 
-    = 
-      NoOp
+    = NoOp
     | RangeChanged RangeGroup
     | AttackerMovementChanged AttackerMovementModifier
     | TargetMovementChanged TargetMovementModifier

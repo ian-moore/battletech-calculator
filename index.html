@@ -8231,6 +8231,77 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
+var _user$project$Models$isNone = function (m) {
+	var _p0 = m;
+	if (_p0.ctor === 'Just') {
+		return false;
+	} else {
+		return true;
+	}
+};
+var _user$project$Models$targetMovementToInt = function (movement) {
+	var _p1 = movement;
+	switch (_p1.ctor) {
+		case 'Moved02Hexes':
+			return 0;
+		case 'Moved34Hexes':
+			return 1;
+		case 'Moved56Hexes':
+			return 2;
+		default:
+			return 3;
+	}
+};
+var _user$project$Models$attackerMovementToInt = function (movement) {
+	var _p2 = movement;
+	switch (_p2.ctor) {
+		case 'Stationary':
+			return 0;
+		case 'Walked':
+			return 1;
+		case 'Ran':
+			return 2;
+		default:
+			return 3;
+	}
+};
+var _user$project$Models$rangeToInt = function (group) {
+	var _p3 = group;
+	switch (_p3.ctor) {
+		case 'Short':
+			return 4;
+		case 'Medium':
+			return 6;
+		default:
+			return 8;
+	}
+};
+var _user$project$Models$calculateRoll = function (model) {
+	var targetMovement = A2(_elm_lang$core$Maybe$map, _user$project$Models$targetMovementToInt, model.targetMovement);
+	var attackerMovement = A2(_elm_lang$core$Maybe$map, _user$project$Models$attackerMovementToInt, model.attackerMovement);
+	var range = A2(_elm_lang$core$Maybe$map, _user$project$Models$rangeToInt, model.range);
+	var inputs = {
+		ctor: '::',
+		_0: range,
+		_1: {
+			ctor: '::',
+			_0: attackerMovement,
+			_1: {
+				ctor: '::',
+				_0: targetMovement,
+				_1: {ctor: '[]'}
+			}
+		}
+	};
+	var _p4 = A2(_elm_lang$core$List$any, _user$project$Models$isNone, inputs);
+	if (_p4 === true) {
+		return _elm_lang$core$Maybe$Nothing;
+	} else {
+		return _elm_lang$core$Maybe$Just(
+			_elm_lang$core$List$sum(
+				A2(_elm_lang$core$List$filterMap, _elm_lang$core$Basics$identity, inputs)));
+	}
+};
 var _user$project$Models$Model = F3(
 	function (a, b, c) {
 		return {range: a, attackerMovement: b, targetMovement: c};
@@ -8296,6 +8367,58 @@ var _user$project$Messages$RangeChanged = function (a) {
 var _user$project$Messages$NoOp = {ctor: 'NoOp'};
 var _user$project$Subscriptions$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$View$outputDisplay = function (roll) {
+	var innerHtml = function () {
+		var _p0 = roll;
+		if (_p0.ctor === 'Nothing') {
+			return {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Choose every option to calculate'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Need to roll:'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$span,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								_elm_lang$core$Basics$toString(_p0._0)),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			};
+		}
+	}();
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('output-roll'),
+			_1: {ctor: '[]'}
+		},
+		innerHtml);
 };
 var _user$project$View$radioLabel = F4(
 	function (radioName, radioId, radioLabel, clickMsg) {
@@ -8453,7 +8576,71 @@ var _user$project$View$view = function (model) {
 											}
 										}
 									})),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$h2,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Target Movement'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('input-group'),
+											_1: {ctor: '[]'}
+										},
+										_elm_lang$core$List$concat(
+											{
+												ctor: '::',
+												_0: A4(
+													_user$project$View$radioLabel,
+													'target-movement',
+													'input-target-02',
+													'Moved 0-2 Hexes',
+													_user$project$Messages$TargetMovementChanged(_user$project$Models$Moved02Hexes)),
+												_1: {
+													ctor: '::',
+													_0: A4(
+														_user$project$View$radioLabel,
+														'target-movement',
+														'input-target-34',
+														'Moved 3-4 Hexes',
+														_user$project$Messages$TargetMovementChanged(_user$project$Models$Moved34Hexes)),
+													_1: {
+														ctor: '::',
+														_0: A4(
+															_user$project$View$radioLabel,
+															'target-movement',
+															'input-target-56',
+															'Moved 5-6 Hexes',
+															_user$project$Messages$TargetMovementChanged(_user$project$Models$Moved56Hexes)),
+														_1: {
+															ctor: '::',
+															_0: A4(
+																_user$project$View$radioLabel,
+																'target-movement',
+																'input-target-79',
+																'Moved 7-9 Hexes',
+																_user$project$Messages$TargetMovementChanged(_user$project$Models$Moved79Hexes)),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											})),
+									_1: {
+										ctor: '::',
+										_0: _user$project$View$outputDisplay(
+											_user$project$Models$calculateRoll(model)),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
 						}
 					}
 				}
